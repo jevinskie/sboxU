@@ -7,6 +7,7 @@
 #define _SBOXU_CPP_UTILS_H_
 
 #include "sboxu_cpp.hpp"
+#include <cstring>
 
 
 // !SECTION! Basic functions 
@@ -68,7 +69,7 @@ public:
         std::string msg = "List has length ";
         msg += std::to_string(length);
         msg += " but length should be a power of 2";
-        return msg.c_str();
+        return strdup(msg.c_str());
     }
 };
 

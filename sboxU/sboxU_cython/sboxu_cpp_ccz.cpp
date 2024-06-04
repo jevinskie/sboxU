@@ -49,7 +49,7 @@ public:
         dimension(_dimension)
     {
         clz_switching_positions.push_back(0);
-        unsigned int previous_switch_clz = __builtin_clz(z[0]);
+        int previous_switch_clz = __builtin_clz(z[0]);
         for (unsigned int i=1; i<z.size(); i++)
         {
             if (previous_switch_clz > __builtin_clz(z[i]))
@@ -213,18 +213,16 @@ std::vector<std::vector<BinWord> > extract_bases_rec(
                 for (unsigned int i=start; i<end; i++)
                 {
                     const BinWord a = z[i];
-                    std::vector<BinWord> z_a = std::move(super_extract_vector_cpp(
+                    std::vector<BinWord> z_a = super_extract_vector_cpp(
                                                                    z,
                                                                    spec,
                                                                    a,
-                                                                   slice_index));
+                                                                   slice_index);
                     if (z_a.size() >= min_size_extracted)
                     {
-                        std::vector<std::vector<BinWord> > tmp = std::move(
-                            extract_bases_rec(z_a,
+                        std::vector<std::vector<BinWord> > tmp = extract_bases_rec(z_a,
                                               dimension-1,
-                                              end_code)
-                            );
+                                              end_code);
                         result.reserve(result.size() + tmp.size()) ;
                         for (auto & base : tmp)
                         {
@@ -289,16 +287,15 @@ void extract_bases_starting_with(
         if (slice_is_good[slice_index])
         {        
             // Vector Extraction
-            std::vector<BinWord> z_a = std::move(super_extract_vector_cpp(
+            std::vector<BinWord> z_a = super_extract_vector_cpp(
                                                      z,
                                                      spec,
                                                      a,
-                                                     slice_index));
+                                                     slice_index);
             // Continuing if the result of the extraction is big enough
             if (z_a.size() >= min_size_extracted)
             {
-                std::vector<std::vector<BinWord> > tmp =
-                    std::move(extract_bases_rec(z_a, dimension-1, end_code));
+                std::vector<std::vector<BinWord> > tmp = extract_bases_rec(z_a, dimension-1, end_code);
                 result.reserve(result.size() + tmp.size()) ;
                 for (auto & base : tmp)
                 {
@@ -431,8 +428,7 @@ void extract_affine_bases_starting_with(
         // pre-processing
         const std::vector<BinWord> pre_processed_z = affine_pre_process(a, z) ;
         // linear extraction
-        std::vector<std::vector<BinWord> > tmp =
-            std::move(extract_bases_rec(pre_processed_z, dimension, end_code));
+        std::vector<std::vector<BinWord> > tmp = extract_bases_rec(pre_processed_z, dimension, end_code);
         result.reserve(result.size() + tmp.size()) ;
         for (auto & base : tmp)
         {

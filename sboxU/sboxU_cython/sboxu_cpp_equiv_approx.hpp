@@ -83,9 +83,9 @@ private:
     unsigned long int y;
     unsigned long int guess_mask;
     std::vector<IOpair> constraints;
+    Opponent opp;
     LEguessApprox base_guess;
     LEguessApprox prepared_guess;
-    Opponent opp;
 public:
     LEguessIteratorApprox(const unsigned int _target_size,
 			  const std::vector<IOpair> _constraints,
