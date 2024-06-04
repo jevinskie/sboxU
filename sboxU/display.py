@@ -64,13 +64,13 @@ def pretty_vector(v, template="{:2x},"):
     
 def pretty_lagrange(s, G):
     poly_ring = PolynomialRing(G, "y")
-    p = poly_ring.lagrange_polynomial([(G.fetch_int(i), G.fetch_int(s[i])) for i in range(0, len(s))])
+    p = poly_ring.lagrange_polynomial([(G.from_integer(i), G.from_integer(s[i])) for i in range(0, len(s))])
     result = ""
     for i, k in enumerate(p):
         if k == 1:
             result += "X^{:d} + ".format(i)
         elif k != 0:
-            result += "{:x}*X^{:d} + ".format(k.integer_representation(), i)
+            result += "{:x}*X^{:d} + ".format(k.to_integer(), i)
     return result[:-2]
 
 

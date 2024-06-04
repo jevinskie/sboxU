@@ -53,7 +53,7 @@ def test_vector_extraction(N):
 
 def test_ccz_equivalence(N, n_trials):
     gf = GF(2**N, name="a")
-    cube = [(gf.fetch_int(x)**3).integer_representation() for x in range(0, 2**N)]
+    cube = [(gf.from_integer(x)**3).to_integer() for x in range(0, 2**N)]
     print("Should be True:")
     total_time_ccz = 0.0
     for i, g in enumerate(ea_classes_in_the_ccz_class_of(cube)):

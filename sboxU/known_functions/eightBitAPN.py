@@ -13,7 +13,7 @@ X = POLY_RING.gen()
 def poly_to_lut(p):
     s = []
     for x_i in range(0, 2**N):
-        y = (p(F.fetch_int(x_i))).integer_representation()
+        y = (p(F.from_integer(x_i))).to_integer()
         s.append(y)
     return s
 

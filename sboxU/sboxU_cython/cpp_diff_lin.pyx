@@ -200,7 +200,7 @@ def log_exp_table(F):
     N = F.degree()
     E = [1]
     for i in range(1, 2**N-1):
-        E.append(x.integer_representation())
+        E.append(x.to_integer())
         x *= a
     L = [2**N]
     for i in range(1, 2**N):

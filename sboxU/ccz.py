@@ -1146,7 +1146,7 @@ def test_ae_equivalence(N, verbose=False):
 def test_ea_permutations():
     for N in [4, 5]:
         F = GF(2**N, name="a")
-        inv = [(F.fetch_int(x)**(2**N-2)).integer_representation()
+        inv = [(F.from_integer(x)**(2**N-2)).to_integer()
                for x in range(0, 2**N)]
         print("== " + str(N))
         for L in ea_equivalent_permutation_mappings(inv):
@@ -1158,9 +1158,9 @@ def test_ccz_permutations(number="all permutations"):
     # generating the Kim mapping
     kim = []
     for x_i in range(0, 2**N):
-        x = F.fetch_int(x_i)
+        x = F.from_integer(x_i)
         y = x**3 + x**10 + F.gen()*x**24
-        kim.append(y.integer_representation())
+        kim.append(y.to_integer())
     permutations = ccz_equivalent_permutations(kim, number=number)
     for i, p in enumerate(permutations):
         print("{:2d} {} {} {}".format(
@@ -1177,9 +1177,9 @@ def test_enumerate_ea():
     # generating the Kim mapping
     kim = []
     for x_i in range(0, 2**N):
-        x = F.fetch_int(x_i)
+        x = F.from_integer(x_i)
         y = x**3 + x**10 + F.gen()*x**24
-        kim.append(y.integer_representation())
+        kim.append(y.to_integer())
     classes = enumerate_ea_classes(kim)
     for f in classes:
         print(str(algebraic_degree(f)) + pretty_spectrum(thickness_spectrum(f)))
@@ -1192,9 +1192,9 @@ def test_ea_classes():
     # generating the Kim mapping
     kim = []
     for x_i in range(0, 2**N):
-        x = F.fetch_int(x_i)
+        x = F.from_integer(x_i)
         y = x**3 + x**10 + F.gen()*x**24
-        kim.append(y.integer_representation())
+        kim.append(y.to_integer())
 
     total = 0
     for f in ea_classes_in_the_ccz_class_of(kim):
@@ -1222,7 +1222,7 @@ if __name__ == '__main__':
 
     N = 5
     gf = GF(2**N, name="a")
-    cube = [(gf.fetch_int(x)**3) for x in range(0, 2**N)]
+    cube = [(gf.from_integer(x)**3) for x in range(0, 2**N)]
     for g in ea_classes_in_the_ccz_class_of(cube):
         print(are_ccz_equivalent(f, g), g)
         

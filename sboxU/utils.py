@@ -128,7 +128,7 @@ def eval_function_like(x, o):
         if x > len(gf):
             raise Exception("input ({:d}) is too large to be cast to an element of {}".format(x, gf))
         else:
-            return o(gf.fetch_int(x)).integer_representation()
+            return o(gf.from_integer(x)).to_integer()
     elif "__call__" in dir(o):
         return o(x)
     else:
@@ -148,7 +148,7 @@ def get_lut(o, domain_size=None):
         return [o(x) for x in range(0, 2**o.inner_matrix.ncols())]
     elif "base_ring" in dir(o):
         gf = o.base_ring()
-        return [o(gf.fetch_int(x)).integer_representation() for x in range(0, len(gf))]
+        return [o(gf.from_integer(x)).to_integer() for x in range(0, len(gf))]
     elif "__call__" in dir(o):
         if domain_size == None:
             raise Exception("for such ojects ({}), `domain_size` must be specified".format(type(o)))
@@ -247,14 +247,14 @@ def F_mult(gf, cstte):
 
     """
     if isinstance(cstte, (int, Integer)):
-        elmt = gf.fetch_int(cstte)
-        return lambda x : (gf.fetch_int(x) * elmt).integer_representation()
+        elmt = gf.from_integer(cstte)
+        return lambda x : (gf.from_integer(x) * elmt).to_integer()
     elif isinstance(cstte, sage.rings.rational.Rational):
         if cstte.numerator() != 1:
             raise Exception("input must be either an integer or a fraction of the form 1/c")
         else:
-            elmt = gf.fetch_int(cstte.denominator())**-1
-            return lambda x : (gf.fetch_int(x) * elmt).integer_representation()
+            elmt = gf.from_integer(cstte.denominator())**-1
+            return lambda x : (gf.from_integer(x) * elmt).to_integer()
     elif isinstance(cstte, float):
         rational_form_numerator = int(round((1.0 / cstte)))
         return F_mult(gf, sage.rings.rational.Rational((1, rational_form_numerator)))

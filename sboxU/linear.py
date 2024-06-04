@@ -589,15 +589,15 @@ def bin_mat_to_int(m):
 # !SUBSECTION! Easy interaction with finite fields
 
 def mult_ff(x, y, F):
-    return (F.fetch_int(x) * F.fetch_int(y)).integer_representation()
+    return (F.from_integer(x) * F.from_integer(y)).to_integer()
 
 
 def div_ff(x, y, F):
-    return (F.fetch_int(x) / F.fetch_int(y)).integer_representation()
+    return (F.from_integer(x) / F.from_integer(y)).to_integer()
 
 
 def pow_ff(x, a, F):
-    return (F.fetch_int(x)**a).integer_representation()
+    return (F.from_integer(x)**a).to_integer()
 
 
 
